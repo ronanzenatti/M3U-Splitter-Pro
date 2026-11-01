@@ -340,33 +340,34 @@
                 <span class="export-items-highlight" id="selected-items-badge">0 itens</span>
               </div>
 
-              <!-- Export Mode Selector -->
+              <!-- Export Mode Selector (3 Botões) -->
               <div class="export-format-selector">
-                <span class="format-label">Como deseja salvar os arquivos:</span>
+                <span class="format-label">Opções de Exportação:</span>
                 <div class="format-options">
-                  <label class="format-pill active" title="Gera 1 arquivo único com tudo o que estiver selecionado">
+                  <label class="format-pill active" title="Baixa o arquivo direto (.m3u8), sem zip e com tudo que foi selecionado">
                     <input type="radio" name="export-mode" value="single" checked>
-                    <span>📄 1 Arquivo Único</span>
+                    <span>📄 Arquivo Único</span>
                   </label>
-                  <label class="format-pill" title="1 arquivo para cada tipo mestre selecionado (canais.m3u8, filmes.m3u8, series.m3u8)">
+                  <label class="format-pill" title="1 Arquivo para cada categoria mestre contendo todos os links de cada um">
                     <input type="radio" name="export-mode" value="macro">
-                    <span>📑 Categorias Mestres (Canais/Filmes/Séries)</span>
+                    <span>📑 Separado por Canais/Filmes/Séries</span>
                   </label>
-                  <label class="format-pill" title="Gera 1 arquivo separado para cada subcategoria individual">
+                  <label class="format-pill" title="Cada categoria filha tem seu arquivo separado em uma pasta com o nome da categoria mestre">
                     <input type="radio" name="export-mode" value="individual">
-                    <span>📁 Categorias Filhas (Individuais)</span>
-                  </label>
-                  <label class="format-pill" title="Pacote ZIP completo com arquivos mestres e subcategorias em pastas">
-                    <input type="radio" name="export-mode" value="bundle">
-                    <span>📦 Pacote Completo (Tudo)</span>
+                    <span>📁 Separado por Categorias Filhas</span>
                   </label>
                 </div>
               </div>
 
+              <!-- Opções extras para Separado por Categorias Filhas -->
               <div id="export-sub-options" class="export-options hidden">
                 <label class="checkbox-label" title="Cria subpastas Canais/, Filmes/ e Series/ dentro do ZIP">
                   <input type="checkbox" id="opt-folder-structure" checked>
                   Organizar em pastas (Canais/ Filmes/ Series/)
+                </label>
+                <label class="checkbox-label" title="Também inclui os arquivos mestres 'canais.m3u8', 'filmes.m3u8' e 'series.m3u8' no ZIP">
+                  <input type="checkbox" id="opt-macro-master-files">
+                  Gerar arquivos mestres unificados
                 </label>
               </div>
             </div>
@@ -378,7 +379,7 @@
                   <polyline points="7 10 12 15 17 10"></polyline>
                   <line x1="12" y1="15" x2="12" y2="3"></line>
                 </svg>
-                <span id="btn-export-label">Baixar Arquivo M3U8</span>
+                <span id="btn-export-label">Baixar Arquivo Único (.m3u8)</span>
               </button>
             </div>
           </div>

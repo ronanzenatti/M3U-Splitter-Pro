@@ -89,6 +89,7 @@
     selectedCatsBadge: document.getElementById('selected-cats-badge'),
     selectedItemsBadge: document.getElementById('selected-items-badge'),
     optFolderStructure: document.getElementById('opt-folder-structure'),
+    optMacroMasterFiles: document.getElementById('opt-macro-master-files'),
     btnGenerateZip: document.getElementById('btn-generate-zip'),
     btnExportLabel: document.getElementById('btn-export-label'),
     exportSubOptions: document.getElementById('export-sub-options'),
@@ -778,16 +779,14 @@
   function updateExportButtonLabel(mode) {
     if (!dom.btnExportLabel) return;
     if (dom.exportSubOptions) {
-      dom.exportSubOptions.classList.toggle('hidden', mode !== 'individual' && mode !== 'bundle');
+      dom.exportSubOptions.classList.toggle('hidden', mode !== 'individual');
     }
     if (mode === 'single') {
-      dom.btnExportLabel.textContent = 'Baixar Arquivo M3U8 (Único)';
+      dom.btnExportLabel.textContent = 'Baixar Arquivo Único (.m3u8)';
     } else if (mode === 'macro') {
       dom.btnExportLabel.textContent = 'Baixar Categorias Mestres (.zip)';
     } else if (mode === 'individual') {
       dom.btnExportLabel.textContent = 'Baixar Categorias Filhas (.zip)';
-    } else if (mode === 'bundle') {
-      dom.btnExportLabel.textContent = 'Baixar Pacote Completo (.zip)';
     }
   }
 
@@ -816,8 +815,11 @@
     const modeRadio = document.querySelector('input[name="export-mode"]:checked');
     const mode = modeRadio ? modeRadio.value : 'single';
     const dateStr = new Date().toISOString().slice(0, 10);
+    const baseName = state.fileName || 'm3u';
 
-    // 1. MODO: 1 ARQUIVO ÚNICO (Geral ou Tipo Específico Selecionado)
+    // ========================================================
+    // 1. ARQUIVO ÚNICO (Download direto sem zip com tudo que foi selecionado)
+    // ========================================================
     if (mode === 'single') {
       let singleContent = '#EXTM3U\n';
       let hasCanais = false;
@@ -835,10 +837,8 @@
         }
       }
 
-      // Nome inteligente baseado no que o usuário selecionou
-      let baseName = state.fileName || 'm3u';
+      // Nome inteligente de acordo com o que foi selecionado
       let singleFileName = `${baseName}_selecionado_${dateStr}.m3u8`;
-
       if (hasCanais && !hasFilmes && !hasSeries) {
         singleFileName = `${baseName}_todos_canais_${dateStr}.m3u8`;
       } else if (hasFilmes && !hasCanais && !hasSeries) {
@@ -847,13 +847,15 @@
         singleFileName = `${baseName}_todas_series_${dateStr}.m3u8`;
       }
 
-      // Download nativo direto do arquivo .m3u8 (instantâneo sem necessidade de descompactar)
+      // Download nativo direto do arquivo .m3u8
       const blob = new Blob([singleContent], { type: 'audio/x-mpegurl;charset=utf-8' });
       downloadBlob(blob, singleFileName);
       return;
     }
 
+    // ========================================================
     // MODOS MULTI-ARQUIVOS (ZIP)
+    // ========================================================
     if (typeof JSZip === 'undefined') {
       alert('Biblioteca JSZip não carregada. Verifique a conexão.');
       return;
@@ -864,7 +866,10 @@
 
     const zip = new JSZip();
 
-    // 2. MODO: CATEGORIAS MESTRES (1 arquivo para Canais, 1 para Filmes, 1 para Séries)
+    // ========================================================
+    // 2. SEPARADO POR CANAIS/FILMES/SÉRIES
+    // 1 Arquivo para cada categoria mestre contendo todos os links
+    // ========================================================
     if (mode === 'macro') {
       const masters = {
         canais: [],
@@ -879,34 +884,44 @@
         }
       }
 
-      let fileCount = 0;
+      let masterCount = 0;
       if (masters.canais.length > 0) {
         zip.file('01_TODOS_CANAIS.m3u8', '#EXTM3U\n' + masters.canais.join(''));
-        fileCount++;
+        masterCount++;
       }
       if (masters.filmes.length > 0) {
         zip.file('02_TODOS_FILMES.m3u8', '#EXTM3U\n' + masters.filmes.join(''));
-        fileCount++;
+        masterCount++;
       }
       if (masters.series.length > 0) {
         zip.file('03_TODAS_SERIES.m3u8', '#EXTM3U\n' + masters.series.join(''));
-        fileCount++;
+        masterCount++;
       }
 
-      updateZipProgress(65, `Gerados ${fileCount} arquivo(s) mestre(s)...`);
+      updateZipProgress(65, `Gerados ${masterCount} arquivo(s) mestre(s)...`);
     }
 
-    // 3. MODO: CATEGORIAS FILHAS (1 arquivo para cada subcategoria individual)
+    // ========================================================
+    // 3. SEPARADO POR CATEGORIAS FILHAS
+    // Cada categoria filha tem seu arquivo separado em uma pasta com o nome da mestre
+    // ========================================================
     else if (mode === 'individual') {
-      const useFolders = dom.optFolderStructure && dom.optFolderStructure.checked;
+      const useFolders = dom.optFolderStructure ? dom.optFolderStructure.checked : true;
+      const includeMasters = dom.optMacroMasterFiles ? dom.optMacroMasterFiles.checked : false;
+
       const typeFolders = { canais: 'Canais', filmes: 'Filmes', series: 'Series' };
+      const masters = { canais: [], filmes: [], series: [] };
 
       for (let i = 0; i < selected.length; i++) {
         const cat = selected[i];
         let content = '#EXTM3U\n';
         for (let j = 0; j < cat.items.length; j++) {
           const item = cat.items[j];
-          content += `${item.inf}\n${item.url}\n`;
+          const entry = `${item.inf}\n${item.url}\n`;
+          content += entry;
+          if (includeMasters) {
+            masters[cat.type].push(entry);
+          }
         }
 
         const fileName = `${cat.cleanName}.m3u8`;
@@ -920,35 +935,14 @@
         const progress = Math.min(65, Math.floor(5 + ((i + 1) / selected.length) * 60));
         updateZipProgress(progress, `Processando ${cat.name} (${i + 1}/${selected.length})...`);
       }
-    }
 
-    // 4. MODO: PACOTE COMPLETO (Mestres + Filhas em Pastas)
-    else if (mode === 'bundle') {
-      const masters = { canais: [], filmes: [], series: [], tudo: [] };
-      const typeFolders = { canais: 'Canais', filmes: 'Filmes', series: 'Series' };
-
-      for (let i = 0; i < selected.length; i++) {
-        const cat = selected[i];
-        let content = '#EXTM3U\n';
-        for (let j = 0; j < cat.items.length; j++) {
-          const item = cat.items[j];
-          const entry = `${item.inf}\n${item.url}\n`;
-          content += entry;
-          masters[cat.type].push(entry);
-          masters.tudo.push(entry);
-        }
-
-        const folder = typeFolders[cat.type] || 'Outros';
-        zip.folder(folder).file(`${cat.cleanName}.m3u8`, content);
-
-        const progress = Math.min(60, Math.floor(5 + ((i + 1) / selected.length) * 55));
-        updateZipProgress(progress, `Processando ${cat.name} (${i + 1}/${selected.length})...`);
+      // Se a opção "Gerar arquivos mestres unificados" estiver marcada:
+      if (includeMasters) {
+        updateZipProgress(70, 'Incluindo arquivos mestres unificados no pacote...');
+        if (masters.canais.length > 0) zip.file('00_TODOS_CANAIS.m3u8', '#EXTM3U\n' + masters.canais.join(''));
+        if (masters.filmes.length > 0) zip.file('00_TODOS_FILMES.m3u8', '#EXTM3U\n' + masters.filmes.join(''));
+        if (masters.series.length > 0) zip.file('00_TODAS_SERIES.m3u8', '#EXTM3U\n' + masters.series.join(''));
       }
-
-      if (masters.canais.length > 0) zip.file('00_TODOS_CANAIS.m3u8', '#EXTM3U\n' + masters.canais.join(''));
-      if (masters.filmes.length > 0) zip.file('00_TODOS_FILMES.m3u8', '#EXTM3U\n' + masters.filmes.join(''));
-      if (masters.series.length > 0) zip.file('00_TODAS_SERIES.m3u8', '#EXTM3U\n' + masters.series.join(''));
-      if (masters.tudo.length > 0) zip.file('00_LISTA_COMPLETA_SELECIONADA.m3u8', '#EXTM3U\n' + masters.tudo.join(''));
     }
 
     // Comprimir e baixar ZIP
@@ -969,7 +963,7 @@
 
       updateZipProgress(100, 'Download pronto!');
 
-      const zipName = `${state.fileName || 'm3u'}_${mode}_${dateStr}.zip`;
+      const zipName = `${baseName}_${mode}_${dateStr}.zip`;
       downloadBlob(blob, zipName);
 
       setTimeout(() => {

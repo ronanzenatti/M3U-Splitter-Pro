@@ -963,23 +963,32 @@ body {
 }
 
 .export-bar-inner {
-  background: rgba(17, 21, 34, 0.92);
+  background: rgba(17, 21, 34, 0.95);
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: var(--radius-lg);
-  padding: 16px 24px;
+  padding: 16px 28px;
   backdrop-filter: blur(20px);
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(99, 102, 241, 0.15);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 20px;
-  flex-wrap: wrap;
+  gap: 24px;
 }
 
 .export-summary {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
+  flex: 1;
+  min-width: 280px;
+}
+
+.export-btn-group {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-shrink: 0;
 }
 
 .export-stats {
