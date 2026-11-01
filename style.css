@@ -1010,6 +1010,60 @@ body {
   font-family: 'JetBrains Mono', monospace;
 }
 
+.export-format-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 6px 0;
+}
+
+.format-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-dim);
+}
+
+.format-options {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.format-pill {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all var(--transition-fast);
+  user-select: none;
+}
+
+.format-pill input {
+  display: none;
+}
+
+.format-pill:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-main);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.format-pill.active {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.28), rgba(6, 182, 212, 0.28));
+  border-color: rgba(56, 189, 248, 0.55);
+  color: #fff;
+  box-shadow: 0 2px 10px rgba(6, 182, 212, 0.25);
+}
+
 .export-options {
   display: flex;
   align-items: center;
