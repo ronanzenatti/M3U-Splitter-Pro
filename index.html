@@ -1,15 +1,20 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>M3U Splitter Pro — Divisor Inteligente de Listas IPTV</title>
-  <meta name="description" content="Divida e categorize automaticamente listas M3U/M3U8 em Canais, Filmes e Séries. 100% no seu navegador com exportação em ZIP.">
+  <meta name="description"
+    content="Divida e categorize automaticamente listas M3U/M3U8 em Canais, Filmes e Séries. 100% no seu navegador com exportação em ZIP.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
   <div class="bg-glow bg-glow-1"></div>
   <div class="bg-glow bg-glow-2"></div>
@@ -31,9 +36,10 @@
           </div>
         </div>
         <div class="header-right">
-          <button id="btn-header-change-source" type="button" class="btn btn-change-source hidden" title="Carregar outro arquivo ou link">
+          <button id="btn-header-change-source" type="button" class="btn btn-change-source hidden"
+            title="Carregar outro arquivo ou link">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/>
+              <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2" />
             </svg>
             <span>Trocar Arquivo / Link</span>
           </button>
@@ -67,7 +73,9 @@
           </button>
           <button type="button" id="tab-mode-url" class="mode-tab">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+              <path
+                d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+              </path>
             </svg>
             <span>Link do GitHub / URL Web</span>
           </button>
@@ -77,14 +85,16 @@
         <div id="drop-zone" class="drop-zone">
           <input type="file" id="file-input" accept=".m3u,.m3u8,.txt" class="file-input-hidden">
           <div class="drop-icon-wrapper">
-            <svg class="drop-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+            <svg class="drop-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="1.6">
               <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
               <polyline points="17 8 12 3 7 8"></polyline>
               <line x1="12" y1="3" x2="12" y2="15"></line>
             </svg>
           </div>
           <h2 class="drop-title">Arraste seu arquivo M3U ou M3U8 aqui</h2>
-          <p class="drop-desc">Suporta arquivos massivos de 100MB+ (mais de 300.000 itens) com processamento instantâneo em memória</p>
+          <p class="drop-desc">Suporta arquivos massivos de 100MB+ (mais de 300.000 itens) com processamento instantâneo
+            em memória</p>
           <div class="drop-actions">
             <button id="btn-select-file" type="button" class="btn btn-primary">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -101,12 +111,17 @@
         <!-- Mode 2: GitHub / Web URL Card -->
         <div id="url-zone" class="url-zone hidden">
           <div class="drop-icon-wrapper icon-github">
-            <svg class="drop-icon" width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+            <svg class="drop-icon" width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="1.8">
+              <path
+                d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+              </path>
             </svg>
           </div>
           <h2 class="drop-title">Importar Lista Direto do GitHub ou Web</h2>
-          <p class="drop-desc">Cole o link do arquivo no GitHub (ex: <code>.../blob/master/CanaisBR04.m3u8</code>). O app baixa e converte diretamente no navegador, <strong>sem precisar de Git instalado</strong> no computador!</p>
+          <p class="drop-desc">Cole o link do arquivo no GitHub (ex: <code>.../blob/master/CanaisBR04.m3u8</code>). O
+            app baixa e converte diretamente no navegador, <strong>sem precisar de Git instalado</strong> no computador!
+          </p>
 
           <form id="url-form" class="url-form">
             <div class="url-input-wrap">
@@ -114,7 +129,9 @@
                 <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
                 <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
               </svg>
-              <input type="url" id="m3u-url-input" placeholder="https://github.com/Ramys/Iptv-Brasil-2026/blob/master/CanaisBR04.m3u8" required autocomplete="off">
+              <input type="url" id="m3u-url-input"
+                placeholder="https://github.com/Ramys/Iptv-Brasil-2026/blob/master/CanaisBR04.m3u8" required
+                autocomplete="off">
             </div>
             <button type="submit" id="btn-fetch-url" class="btn btn-primary btn-fetch">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -140,7 +157,8 @@
             <div class="spinner"></div>
           </div>
           <h3 id="processing-status-title" class="processing-title">Analisando e categorizando...</h3>
-          <p id="processing-status-desc" class="processing-desc">Identificando canais ao vivo, filmes e séries em alta velocidade</p>
+          <p id="processing-status-desc" class="processing-desc">Identificando canais ao vivo, filmes e séries em alta
+            velocidade</p>
           <div class="progress-bar-container">
             <div id="progress-bar" class="progress-bar" style="width: 0%"></div>
           </div>
@@ -199,9 +217,10 @@
             <span class="source-label">Lista Ativa:</span>
             <span id="active-source-name" class="source-value">Nenhum</span>
           </div>
-          <button id="btn-source-change-banner" type="button" class="btn btn-change-source" title="Carregar outro arquivo ou link">
+          <button id="btn-source-change-banner" type="button" class="btn btn-change-source"
+            title="Carregar outro arquivo ou link">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/>
+              <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2" />
             </svg>
             <span>Trocar Arquivo / Link</span>
           </button>
@@ -216,10 +235,12 @@
                   <circle cx="11" cy="11" r="8"></circle>
                   <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                 </svg>
-                <input type="text" id="category-search" placeholder="Filtrar categorias (ex: Esportes, Netflix, HBO, 4K)..." autocomplete="off">
+                <input type="text" id="category-search"
+                  placeholder="Filtrar categorias (ex: Esportes, Netflix, HBO, 4K)..." autocomplete="off">
                 <button id="btn-clear-search" class="btn-clear hidden" title="Limpar busca">&times;</button>
               </div>
-              <button id="btn-clear-filter" type="button" class="btn btn-clear-filter hidden" title="Limpar busca e filtros">
+              <button id="btn-clear-filter" type="button" class="btn btn-clear-filter hidden"
+                title="Limpar busca e filtros">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <path d="M18 6L6 18"></path>
                   <path d="M6 6l12 12"></path>
@@ -243,9 +264,10 @@
                 </svg>
                 Desmarcar Todas
               </button>
-              <button id="btn-reset-file" type="button" class="btn btn-change-source" title="Carregar outro arquivo ou link">
+              <button id="btn-reset-file" type="button" class="btn btn-change-source"
+                title="Carregar outro arquivo ou link">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/>
+                  <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2" />
                 </svg>
                 <span>Trocar Arquivo / Link</span>
               </button>
@@ -344,15 +366,18 @@
               <div class="export-format-selector">
                 <span class="format-label">Opções de Exportação:</span>
                 <div class="format-options">
-                  <label class="format-pill active" title="Baixa o arquivo direto (.m3u8), sem zip e com tudo que foi selecionado">
+                  <label class="format-pill active"
+                    title="Baixa o arquivo direto (.m3u8), sem zip e com tudo que foi selecionado">
                     <input type="radio" name="export-mode" value="single" checked>
                     <span>📄 Arquivo Único</span>
                   </label>
-                  <label class="format-pill" title="1 Arquivo para cada categoria mestre contendo todos os links de cada um">
+                  <label class="format-pill"
+                    title="1 Arquivo para cada categoria mestre contendo todos os links de cada um">
                     <input type="radio" name="export-mode" value="macro">
                     <span>📑 Separado por Canais/Filmes/Séries</span>
                   </label>
-                  <label class="format-pill" title="Cada categoria filha tem seu arquivo separado em uma pasta com o nome da categoria mestre">
+                  <label class="format-pill"
+                    title="Cada categoria filha tem seu arquivo separado em uma pasta com o nome da categoria mestre">
                     <input type="radio" name="export-mode" value="individual">
                     <span>📁 Separado por Categorias Filhas</span>
                   </label>
@@ -365,8 +390,9 @@
                   <input type="checkbox" id="opt-folder-structure" checked>
                   Organizar em pastas (Canais/ Filmes/ Series/)
                 </label>
-                <label class="checkbox-label" title="Também inclui os arquivos mestres 'canais.m3u8', 'filmes.m3u8' e 'series.m3u8' no ZIP">
-                  <input type="checkbox" id="opt-macro-master-files">
+                <label class="checkbox-label"
+                  title="Também inclui os arquivos mestres 'canais.m3u8', 'filmes.m3u8' e 'series.m3u8' no ZIP">
+                  <input type="checkbox" id="opt-macro-master-files" checked>
                   Gerar arquivos mestres unificados
                 </label>
               </div>
@@ -410,4 +436,5 @@
   <script src="jszip.min.js"></script>
   <script src="app.js"></script>
 </body>
+
 </html>
