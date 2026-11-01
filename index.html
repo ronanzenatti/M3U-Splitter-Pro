@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>M3U Splitter Pro — Divisor Inteligente de Listas IPTV</title>
+  <meta name="description" content="Divida e categorize automaticamente listas M3U/M3U8 em Canais, Filmes e Séries. 100% no seu navegador com exportação em ZIP.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="bg-glow bg-glow-1"></div>
+  <div class="bg-glow bg-glow-2"></div>
+  <div class="bg-glow bg-glow-3"></div>
+
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="header-top">
+        <div class="brand">
+          <div class="brand-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="5 3 19 12 5 21 5 3"></polygon>
+            </svg>
+          </div>
+          <div>
+            <h1 class="brand-title">M3U Splitter <span class="gradient-text">Pro</span></h1>
+            <p class="brand-subtitle">Organizador e Divisor Automático de Listas IPTV</p>
+          </div>
+        </div>
+        <div class="header-right">
+          <button id="btn-header-change-source" type="button" class="btn btn-change-source hidden" title="Carregar outro arquivo ou link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/>
+            </svg>
+            <span>Trocar Arquivo / Link</span>
+          </button>
+          <div class="security-badges">
+            <span class="badge badge-success">
+              <span class="pulse-dot"></span> 100% Client-Side
+            </span>
+            <span class="badge badge-outline" title="Seus dados nunca saem do seu computador">
+              🔒 Seguro & Privado
+            </span>
+            <span class="badge badge-vercel" title="Pronto para deploy na Vercel">
+              ▲ Vercel Ready
+            </span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      <!-- Upload Section -->
+      <section id="upload-section" class="upload-section">
+        <!-- Source Mode Switcher -->
+        <div class="source-mode-nav">
+          <button type="button" id="tab-mode-file" class="mode-tab active">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+            </svg>
+            <span>Arquivo Local (.m3u/.m3u8)</span>
+          </button>
+          <button type="button" id="tab-mode-url" class="mode-tab">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+            </svg>
+            <span>Link do GitHub / URL Web</span>
+          </button>
+        </div>
+
+        <!-- Mode 1: File Drop Zone -->
+        <div id="drop-zone" class="drop-zone">
+          <input type="file" id="file-input" accept=".m3u,.m3u8,.txt" class="file-input-hidden">
+          <div class="drop-icon-wrapper">
+            <svg class="drop-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="17 8 12 3 7 8"></polyline>
+              <line x1="12" y1="3" x2="12" y2="15"></line>
+            </svg>
+          </div>
+          <h2 class="drop-title">Arraste seu arquivo M3U ou M3U8 aqui</h2>
+          <p class="drop-desc">Suporta arquivos massivos de 100MB+ (mais de 300.000 itens) com processamento instantâneo em memória</p>
+          <div class="drop-actions">
+            <button id="btn-select-file" type="button" class="btn btn-primary">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              Selecionar Arquivo do Computador
+            </button>
+          </div>
+          <div class="file-hints">Formatos suportados: <code>.m3u</code>, <code>.m3u8</code></div>
+        </div>
+
+        <!-- Mode 2: GitHub / Web URL Card -->
+        <div id="url-zone" class="url-zone hidden">
+          <div class="drop-icon-wrapper icon-github">
+            <svg class="drop-icon" width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+            </svg>
+          </div>
+          <h2 class="drop-title">Importar Lista Direto do GitHub ou Web</h2>
+          <p class="drop-desc">Cole o link do arquivo no GitHub (ex: <code>.../blob/master/CanaisBR04.m3u8</code>). O app baixa e converte diretamente no navegador, <strong>sem precisar de Git instalado</strong> no computador!</p>
+
+          <form id="url-form" class="url-form">
+            <div class="url-input-wrap">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+              </svg>
+              <input type="url" id="m3u-url-input" placeholder="https://github.com/Ramys/Iptv-Brasil-2026/blob/master/CanaisBR04.m3u8" required autocomplete="off">
+            </div>
+            <button type="submit" id="btn-fetch-url" class="btn btn-primary btn-fetch">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              <span>Carregar Link</span>
+            </button>
+          </form>
+
+          <div class="url-shortcuts">
+            <span class="shortcut-label">Exemplo rápido (clique para testar):</span>
+            <button type="button" id="btn-sample-github" class="btn-url-pill">
+              🔗 Ramys/Iptv-Brasil-2026 (CanaisBR04.m3u8)
+            </button>
+          </div>
+        </div>
+
+        <!-- Processing Indicator -->
+        <div id="processing-indicator" class="processing-card hidden">
+          <div class="spinner-wrapper">
+            <div class="spinner"></div>
+          </div>
+          <h3 id="processing-status-title" class="processing-title">Analisando e categorizando...</h3>
+          <p id="processing-status-desc" class="processing-desc">Identificando canais ao vivo, filmes e séries em alta velocidade</p>
+          <div class="progress-bar-container">
+            <div id="progress-bar" class="progress-bar" style="width: 0%"></div>
+          </div>
+          <div class="progress-stats">
+            <span id="progress-text">Iniciando leitura...</span>
+            <span id="progress-percent">0%</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Results & Manager Section (Hidden initially) -->
+      <section id="manager-section" class="manager-section hidden">
+        <!-- Stats Dashboard -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-header">
+              <span class="stat-icon icon-total">📊</span>
+              <span class="stat-label">Total de Itens</span>
+            </div>
+            <div id="stat-total-items" class="stat-value">0</div>
+            <div id="stat-total-cats" class="stat-detail">0 categorias identificadas</div>
+          </div>
+
+          <div class="stat-card stat-canais">
+            <div class="stat-header">
+              <span class="stat-icon icon-live">📺</span>
+              <span class="stat-label">Canais Ao Vivo</span>
+            </div>
+            <div id="stat-live-items" class="stat-value">0</div>
+            <div id="stat-live-cats" class="stat-detail">0 categorias</div>
+          </div>
+
+          <div class="stat-card stat-filmes">
+            <div class="stat-header">
+              <span class="stat-icon icon-movies">🎬</span>
+              <span class="stat-label">Filmes (VOD)</span>
+            </div>
+            <div id="stat-movie-items" class="stat-value">0</div>
+            <div id="stat-movie-cats" class="stat-detail">0 categorias</div>
+          </div>
+
+          <div class="stat-card stat-series">
+            <div class="stat-header">
+              <span class="stat-icon icon-series">🍿</span>
+              <span class="stat-label">Séries & Novelas</span>
+            </div>
+            <div id="stat-series-items" class="stat-value">0</div>
+            <div id="stat-series-cats" class="stat-detail">0 categorias</div>
+          </div>
+        </div>
+
+        <!-- Active Source Banner -->
+        <div class="active-source-bar">
+          <div class="source-pill">
+            <span class="source-icon">📡</span>
+            <span class="source-label">Lista Ativa:</span>
+            <span id="active-source-name" class="source-value">Nenhum</span>
+          </div>
+          <button id="btn-source-change-banner" type="button" class="btn btn-change-source" title="Carregar outro arquivo ou link">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/>
+            </svg>
+            <span>Trocar Arquivo / Link</span>
+          </button>
+        </div>
+
+        <!-- Controls Toolbar -->
+        <div class="toolbar-card">
+          <div class="toolbar-top">
+            <div class="search-wrap">
+              <div class="search-box">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input type="text" id="category-search" placeholder="Filtrar categorias (ex: Esportes, Netflix, HBO, 4K)..." autocomplete="off">
+                <button id="btn-clear-search" class="btn-clear hidden" title="Limpar busca">&times;</button>
+              </div>
+              <button id="btn-clear-filter" type="button" class="btn btn-clear-filter hidden" title="Limpar busca e filtros">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M18 6L6 18"></path>
+                  <path d="M6 6l12 12"></path>
+                </svg>
+                <span>Limpar Filtro</span>
+              </button>
+            </div>
+
+            <!-- Global Master Toggles -->
+            <div class="toolbar-actions">
+              <button id="btn-select-all" type="button" class="btn btn-secondary">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                Marcar Todas
+              </button>
+              <button id="btn-deselect-all" type="button" class="btn btn-ghost">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+                Desmarcar Todas
+              </button>
+              <button id="btn-reset-file" type="button" class="btn btn-change-source" title="Carregar outro arquivo ou link">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/>
+                </svg>
+                <span>Trocar Arquivo / Link</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Quick Filter Tabs -->
+          <div class="type-filter-tabs">
+            <button class="filter-tab active" data-type="all">
+              Todas as Categorias (<span id="tab-count-all">0</span>)
+            </button>
+            <button class="filter-tab" data-type="canais">
+              📺 Canais (<span id="tab-count-canais">0</span>)
+            </button>
+            <button class="filter-tab" data-type="filmes">
+              🎬 Filmes (<span id="tab-count-filmes">0</span>)
+            </button>
+            <button class="filter-tab" data-type="series">
+              🍿 Séries & Novelas (<span id="tab-count-series">0</span>)
+            </button>
+          </div>
+        </div>
+
+        <!-- Category Groups Container -->
+        <div id="categories-container" class="categories-container">
+          <!-- Live Channels Section -->
+          <section id="section-canais" class="type-category-section">
+            <div class="category-section-header">
+              <div class="section-title-wrap">
+                <span class="type-emoji">📺</span>
+                <div>
+                  <h3 class="section-title">Canais de TV Ao Vivo</h3>
+                  <span id="canais-section-summary" class="section-subtitle">0 categorias selecionadas</span>
+                </div>
+              </div>
+              <div class="section-toggle-actions">
+                <button type="button" class="btn-micro" id="btn-toggle-all-canais" data-checked="true">
+                  Desmarcar Canais
+                </button>
+              </div>
+            </div>
+            <div id="grid-canais" class="categories-grid"></div>
+          </section>
+
+          <!-- Movies Section -->
+          <section id="section-filmes" class="type-category-section">
+            <div class="category-section-header">
+              <div class="section-title-wrap">
+                <span class="type-emoji">🎬</span>
+                <div>
+                  <h3 class="section-title">Filmes (VOD)</h3>
+                  <span id="filmes-section-summary" class="section-subtitle">0 categorias selecionadas</span>
+                </div>
+              </div>
+              <div class="section-toggle-actions">
+                <button type="button" class="btn-micro" id="btn-toggle-all-filmes" data-checked="true">
+                  Desmarcar Filmes
+                </button>
+              </div>
+            </div>
+            <div id="grid-filmes" class="categories-grid"></div>
+          </section>
+
+          <!-- Series Section -->
+          <section id="section-series" class="type-category-section">
+            <div class="category-section-header">
+              <div class="section-title-wrap">
+                <span class="type-emoji">🍿</span>
+                <div>
+                  <h3 class="section-title">Séries & Novelas (VOD)</h3>
+                  <span id="series-section-summary" class="section-subtitle">0 categorias selecionadas</span>
+                </div>
+              </div>
+              <div class="section-toggle-actions">
+                <button type="button" class="btn-micro" id="btn-toggle-all-series" data-checked="true">
+                  Desmarcar Séries
+                </button>
+              </div>
+            </div>
+            <div id="grid-series" class="categories-grid"></div>
+          </section>
+        </div>
+
+        <!-- Floating Sticky Action Bar -->
+        <div class="sticky-export-bar">
+          <div class="export-bar-inner">
+            <div class="export-summary">
+              <div class="export-stats">
+                <span class="export-count-badge" id="selected-cats-badge">0</span>
+                <span>categorias selecionadas</span>
+                <span class="bullet">•</span>
+                <span class="export-items-highlight" id="selected-items-badge">0 itens</span>
+              </div>
+              <div class="export-options">
+                <label class="checkbox-label" title="Cria subpastas Canais/, Filmes/ e Series/ dentro do ZIP">
+                  <input type="checkbox" id="opt-folder-structure" checked>
+                  Organizar em pastas (Canais/ Filmes/ Series/)
+                </label>
+                <label class="checkbox-label" title="Também gera os arquivos mestres 'canais.m3u8', 'filmes.m3u8' e 'series.m3u8' no ZIP">
+                  <input type="checkbox" id="opt-macro-master-files" checked>
+                  Gerar arquivos mestres unificados
+                </label>
+              </div>
+            </div>
+            <div class="export-btn-group">
+              <button id="btn-generate-zip" type="button" class="btn btn-export">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                <span>Baixar Pacote ZIP</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Zip Generation Modal Overlay -->
+    <div id="zip-modal" class="modal-overlay hidden">
+      <div class="modal-card">
+        <div class="modal-spinner">
+          <div class="spinner"></div>
+        </div>
+        <h3 id="zip-modal-title" class="modal-title">Empacotando seu arquivo ZIP...</h3>
+        <p id="zip-modal-desc" class="modal-desc">Criando listas M3U8 e comprimindo o pacote</p>
+        <div class="progress-bar-container">
+          <div id="zip-progress-bar" class="progress-bar" style="width: 0%"></div>
+        </div>
+        <div class="progress-stats">
+          <span id="zip-progress-text">Processando...</span>
+          <span id="zip-progress-percent">0%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Local JSZip Library for 100% offline & Vercel deployment -->
+  <script src="jszip.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

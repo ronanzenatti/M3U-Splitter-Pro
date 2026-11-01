@@ -1,0 +1,16 @@
+# Arquivos de listas IPTV (pesados e contendo credenciais privadas)
+*.m3u
+*.m3u8
+*.zip
+
+# Ambientes e dependências
+node_modules/
+.vercel/
+
+# Arquivos do sistema
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Logs
+*.log
