@@ -621,23 +621,25 @@
 
     const checkbox = card.querySelector(`#toggle-${cat.id}`);
 
-    // Card click toggles checkbox
-    card.addEventListener('click', (e) => {
-      if (e.target !== checkbox) {
-        checkbox.checked = !checkbox.checked;
-      }
+    function updateCardState() {
       cat.selected = checkbox.checked;
       card.classList.toggle('selected', cat.selected);
       updateExportSummary();
       updateSectionHeaders();
+    }
+
+    // Card click toggles checkbox (only when clicking outside the toggle-switch)
+    card.addEventListener('click', (e) => {
+      if (e.target.closest('.toggle-switch')) {
+        return;
+      }
+      checkbox.checked = !checkbox.checked;
+      updateCardState();
     });
 
-    checkbox.addEventListener('change', (e) => {
-      e.stopPropagation();
-      cat.selected = checkbox.checked;
-      card.classList.toggle('selected', cat.selected);
-      updateExportSummary();
-      updateSectionHeaders();
+    // Checkbox change event handles direct clicks on the toggle switch or keyboard activation
+    checkbox.addEventListener('change', () => {
+      updateCardState();
     });
 
     return card;
